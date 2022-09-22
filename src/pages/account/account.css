@@ -1,0 +1,135 @@
+.account-row {
+    margin: 50px 0;
+}
+
+.account-title {
+    text-align: center;
+    letter-spacing: 1.3px;
+    color: #2f5f74;
+    margin-bottom: 50px;
+}
+
+.account-groups {
+    display: flex;
+    padding: 0 15px;
+}
+
+.account-group:first-child {
+    flex: 1;
+}
+
+.account-group:last-child {
+    flex: 2;
+}
+
+.account-group img {
+    width: 150px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.form-row.account {
+    margin: 20px 0;
+    min-height: unset;
+}
+
+.account-image {
+    display: block;
+    margin: 5px auto;
+    background-color: #f0f3bd;
+    padding: 5px 10px;
+    border: none;
+    box-shadow: 0 0 5px #f0f3bd;
+    color: #2f5f74;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    transition: all 0.5s;
+}
+
+.account-image:hover {
+    background-color: #2f5f74;
+    color: #f0f3bd;
+}
+
+.account-subtitle {
+    margin-bottom: 50px;
+    letter-spacing: 1.4px;
+    color: #2f5f74;
+    text-align: center;
+}
+
+.card-header img {
+    width: 30%;
+    height: auto;
+}
+
+.account-products {
+    margin-bottom: 50px;
+}
+
+.card-footer.account {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-footer.account button:first-child {
+    display: block;
+    margin: 5px auto;
+    background-color: #f0f3bd;
+    padding: 5px 10px;
+    border: none;
+    box-shadow: 0 0 5px #f0f3bd;
+    color: #2f5f74;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    transition: all 0.5s;
+}
+
+.card-footer.account button:first-child:hover {
+    background-color: #2f5f74;
+    color: #f0f3bd;
+}
+
+.card-footer.account button:last-child {
+    display: block;
+    margin: 5px auto;
+    background-color: #ca2734;
+    padding: 5px 10px;
+    border: none;
+    box-shadow: 0 0 5px #ca2734;
+    color: #ffffff;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    transition: all 0.5s;
+}
+
+.card-footer.account button:last-child:hover {
+    background-color: #ffffff;
+    color: #ca2734;
+}
+
+.account-orders {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.account-orders h4 {
+    margin-bottom: 10px
+}
+
+.account-orders h4:last-child {
+    margin-bottom: 40px
+}
+
+.account-orders a {
+    margin-left: 50px;
+    transition: all 0.5s;
+}
+
+.account-orders a:hover {
+    filter: drop-shadow(0 0 1px #2f5f74);
+}
