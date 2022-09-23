@@ -66,3 +66,44 @@
 .form-footer a:hover {
     text-decoration: underline;
 }
+
+.logout {
+    position: relative;
+    margin: 0 20px;
+    text-shadow: 0 0 1px #485b63;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.change-password {
+    font-size: 12px;
+    color: #ca2734;
+    text-align: right;
+    cursor: pointer;
+}
+
+.change-password:hover {
+    text-decoration: underline;
+}
+
+.passwords {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background-color: #0000001e;
+}
+
+.passwords form {
+    width: 400px;
+    background-color: #ffffff;
+    padding: 30px 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
