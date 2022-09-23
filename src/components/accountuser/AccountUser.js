@@ -1,9 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRefresh, faEye, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import Passwords from '../forms/Passwords';
 
 const AccountUser = () => {
+
+  const navigate = useNavigate();
+
+  const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
+
+   const [name, setName] = useState(userInfo.name);
+   const [email, setEmail] = useState(userInfo.email);
+   const [address, setAddress] = useState(userInfo.address);
+   const [phone, setPhone] = useState(userInfo.phone);
+
+
+  const [open, setOpen] = useState(false);
+  
+  useEffect(() => {
+    if (!localStorage.getItem("userInfo")) {
+      localStorage.getItem("userInfo");
+      navigate("/");
+    }
+  });
+
+  const handlerUpdate = async(e) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await axios.put("/api/users/update", {
+        _id : userInfo._id,
+        name,
+        email,
+        address,
+        phone,
+      });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      toast.success("Your account successfully updated!");
+    } catch (error) {
+      toast.error("Account not updated!");
+    }
+  }
+
   return (
     <div className="account-row">
       <h2 className="account-title">My Account</h2>
@@ -12,17 +53,24 @@ const AccountUser = () => {
           <img src="./assets/images/sellers/ja.jpg" alt="" />
           <button className="account-image">Change Image</button>
           <div className="form-row account">
-            <form>
+            <form onSubmit={handlerUpdate}>
               <div className="form-group">
                 <label htmlFor="name">Full Name</label>
-                <input type="text" id="name" value="Khan Haque" required />
+                <input
+                  type="text"
+                  id="name"
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                  required
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="email">E-mail</label>
                 <input
                   type="email"
                   id="email"
-                  value="khan@gmail.com"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                   required
                 />
               </div>
@@ -31,13 +79,28 @@ const AccountUser = () => {
                 <input
                   type="text"
                   id="address"
-                  value="Uttara Dhaka-1230"
+                  onChange={(e) => setAddress(e.target.value)}
+                  value={address}
                   required
                 />
               </div>
               <div className="form-group">
                 <label htmlFor="phone">Phone</label>
-                <input type="text" id="phone" value="+304092051" required />
+                <input
+                  type="text"
+                  id="phone"
+                  onChange={(e) => setPhone(e.target.value)}
+                  value={phone}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <span
+                  className="change-password"
+                  onClick={() => setOpen(true)}
+                >
+                  Change Password
+                </span>
               </div>
               <div className="form-btn">
                 <button>
@@ -47,6 +110,7 @@ const AccountUser = () => {
               </div>
             </form>
           </div>
+          {open && <Passwords setOpen={setOpen} />}
         </div>
         <div className="account-group">
           <h2 className="account-subtitle">My Products</h2>
