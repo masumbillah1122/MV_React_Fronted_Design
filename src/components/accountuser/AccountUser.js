@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRefresh, faEye, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faRefresh,
+  faEye,
+  faPencil,
+  faTrash,
+  faPlusCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -15,7 +21,11 @@ const AccountUser = () => {
    const [name, setName] = useState(userInfo.name);
    const [email, setEmail] = useState(userInfo.email);
    const [address, setAddress] = useState(userInfo.address);
-   const [phone, setPhone] = useState(userInfo.phone);
+  const [phone, setPhone] = useState(userInfo.phone);
+  
+  const [image, setImage] = useState(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [previewImage, setPreviewImage] = useState(false);
 
 
   const [open, setOpen] = useState(false);
@@ -45,13 +55,88 @@ const AccountUser = () => {
     }
   }
 
+  const validateImage = async(e) => {
+    e.preventDefault();
+
+    const file = e.target.files[0];
+    if (file.size >= 1048574) {
+      return toast.error("Max Size for Image is 1mb!");
+    }
+    else {
+      setImage(file);
+      setPreviewImage(URL.createObjectURL(file));
+    }
+
+  }
+
+  const UploadImage = async(image) => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "nwrovis3");
+
+    try {
+
+      setUploadingImage(true);
+      let res = await fetch("https://api.cloudinary.com/v1_1/dmiu18lya/image/upload", {
+        method: 'post',
+        body: data
+      });
+
+      const urlData = await res.json();
+      setUploadingImage(false);
+      return urlData.url;
+
+    } catch (error) {
+      setUploadingImage(false);
+      toast.error("Image not uploaded!");
+    }
+  }
+
+  const handlerUpdateImage = async (e) => {
+    e.preventDefault();
+
+    if (!image) {
+      return toast.error("Please select your profile image!");
+    }
+      
+    const url = await UploadImage(image);
+    console.log(url);
+
+
+    try {
+      const { data } = await axios.put("/api/users/update", {
+        _id: userInfo._id,
+        image: url
+      });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      toast.success("Profile Image successfully updated!");
+    } catch (error) {
+      toast.error("Account not updated!");
+    }
+
+  }
+
   return (
     <div className="account-row">
       <h2 className="account-title">My Account</h2>
       <div className="account-groups">
         <div className="account-group">
-          <img src="./assets/images/sellers/ja.jpg" alt="" />
-          <button className="account-image">Change Image</button>
+          <form className="form-image" onSubmit={handlerUpdateImage}>
+            <img
+              src={previewImage || "./assets/images/sellers/seller.png"}
+              alt=""
+            />
+              <label htmlFor="image_upload"><FontAwesomeIcon icon={faPlusCircle} /></label>
+            <input
+              type="file"
+              hidden
+              id="image_upload"
+              accept="image/png, image/jpg, image/jpeg"
+              onChange={validateImage}
+            />
+            <button className="btn-upload">{uploadingImage ? "Uploading..." : "Upload"}</button>
+          </form>
+
           <div className="form-row account">
             <form onSubmit={handlerUpdate}>
               <div className="form-group">
@@ -95,10 +180,7 @@ const AccountUser = () => {
                 />
               </div>
               <div className="form-group">
-                <span
-                  className="change-password"
-                  onClick={() => setOpen(true)}
-                >
+                <span className="change-password" onClick={() => setOpen(true)}>
                   Change Password
                 </span>
               </div>

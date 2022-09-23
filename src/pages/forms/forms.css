@@ -104,6 +104,42 @@
     background-color: #ffffff;
     padding: 30px 10px;
     border-radius: 10px;
+    position: relative;
     display: flex;
     flex-direction: column;
+}
+
+.passwords form .form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.passwords form .form-group label {
+    margin-bottom: 5px;
+}
+
+.passwords form .form-group input {
+    height: 40px;
+    border: 1px solid #2f5f74;
+    padding: 5px 15px;
+    outline: none;
+    color: #ca2734;
+}
+
+.close-form {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: -15px;
+    top: -15px;
+    width: 35px;
+    height: 35px;
+    background-color: #ca2734;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
 }
