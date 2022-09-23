@@ -133,3 +133,39 @@
 .account-orders a:hover {
     filter: drop-shadow(0 0 1px #2f5f74);
 }
+
+.form-image {
+    position: relative;
+}
+
+.form-image label {
+    position: absolute;
+    top: -15px;
+    right: 25%;
+    font-size: 25px;
+    cursor: pointer;
+    filter: drop-shadow(0 0 1px #2f5f74);
+    transition: all 0.5s;
+}
+
+.form-image label:hover {
+    color: #ca2734;
+}
+
+.btn-upload {
+    display: block;
+    margin: 5px auto;
+    background-color: #f0f3bd;
+    padding: 5px 10px;
+    border: none;
+    box-shadow: 0 0 5px #f0f3bd;
+    color: #2f5f74;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    transition: all 0.5s;
+}
+
+.btn-upload:hover {
+    background-color: #2f5f74;
+    color: #f0f3bd;
+}
